@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sessions', function (Blueprint $table) {
+        Schema::create('learning_sessions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('course_id')->constrained()->onDelete('cascade');
-            $table->string('title'); // Contoh: "Sesi 1: Pengenalan Digital Marketing"
+            $table->string('title'); // 
             $table->integer('order')->default(0); // Untuk mengurutkan sesi
             $table->timestamps();
         });
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sessions');
+        chema::dropIfExists('learning_sessions');
     }
 };
