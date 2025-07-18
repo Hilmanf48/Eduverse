@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('lessons', function (Blueprint $table) {
-        // Hapus foreign key lama
-            $table->dropForeign(['course_id']);
-            $table->dropColumn('course_id');
-
-        $table->foreignId('session_id')->after('id')->constrained('learning_sessions')->onDelete('cascade');
+        Schema::table('questions', function (Blueprint $table) {
+            
+            $table->text('question_text')->after('quiz_id');
         });
     }
 
@@ -25,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('lessons', function (Blueprint $table) {
-            //
+        Schema::table('questions', function (Blueprint $table) {
+            $table->dropColumn('question_text');
         });
     }
 };

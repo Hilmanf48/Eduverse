@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\LearningSession;
 
 class Lesson extends Model
 {
@@ -10,8 +11,14 @@ class Lesson extends Model
     return $this->belongsTo(Course::class);
 }
 
+public function session()
+{
+    
+    return $this->belongsTo(LearningSession::class, 'session_id');
+}
+
 protected $fillable = [
-    'course_id',
+    'session_id',
     'title',
     'youtube_video_id',
     'order',

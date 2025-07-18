@@ -30,15 +30,14 @@ class LessonController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'course_id' => 'required|exists:courses,id',
-            'title' => 'required|string|max:255',
-            'youtube_video_id' => 'required|string',
-        ]);
+        'session_id' => 'required|exists:learning_sessions,id', // Ganti ini
+        'title' => 'required|string|max:255',
+        'youtube_video_id' => 'required|string',
+    ]);
 
-        Lesson::create($validated);
+    Lesson::create($validated);
 
-        // Kembali ke halaman detail kursus sebelumnya
-        return back()->with('success', 'Video berhasil ditambahkan!');
+    return back()->with('success', 'Video berhasil ditambahkan!');
     }
 
     /**
