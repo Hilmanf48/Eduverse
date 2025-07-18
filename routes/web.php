@@ -8,8 +8,12 @@ use App\Http\Controllers\CourseController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('client.landing');
 });
+
+Route::get('/kelas', function () {
+    return view('client.courses.index');
+})->name('courses.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
