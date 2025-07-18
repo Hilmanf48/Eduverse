@@ -13,6 +13,7 @@
             <li class="mb-2 pt-4">
                 <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Admin Panel</h3>
                 <a href="{{ route('admin.courses.index') }}" class="block p-2 rounded hover:bg-gray-700">Manage Courses</a>
+                <a href="{{ route('admin.users.index') }}" class="block p-2 rounded hover:bg-gray-700">Manage Users</a>
             </li>
             @endif
         </ul>
