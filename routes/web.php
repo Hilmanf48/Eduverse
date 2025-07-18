@@ -29,8 +29,17 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 
 // Halaman utama user
 Route::get('/', function () {
-    return view('welcome');
+    return view('client.landing');
 });
+
+
+Route::get('/kelas', function () {
+    return view('client.courses.index');
+})->name('courses.index');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 
 
