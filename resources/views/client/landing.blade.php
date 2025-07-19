@@ -59,7 +59,7 @@
                 <a href="#hero" class="text-gray-600 hover:text-blue-600 transition duration-300">Home</a>
                 <a href="{{ route('courses.index') }}" class="text-gray-600 hover:text-blue-600 transition duration-300">Kelas</a>
                 <a href="#story-success" class="text-gray-600 hover:text-blue-600 transition duration-300">Story Success</a>
-                <a href="#" class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition duration-300">Login</a>
+                <a href="{{ route('login') }}" class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition duration-300">Login</a>
             </div>
         </div>
 
@@ -155,16 +155,7 @@
     </footer>
 
     <script>
-        const courses = [
-            { id: 1, title: 'Fundamental UI/UX Design', category: 'uiux', description: 'Pelajari dasar-dasar desain antarmuka pengguna dan pengalaman pengguna dari nol.', image: 'https://via.placeholder.com/400x250/b0d7ff/000000?text=UI/UX+Design' },
-            { id: 2, title: 'Fullstack Web Dev with Laravel & Vue', category: 'webdev', description: 'Bangun aplikasi web lengkap menggunakan Laravel dan Vue.js, siap untuk karir profesional.', image: 'https://via.placeholder.com/400x250/b0d7ff/000000?text=Web+Dev' },
-            { id: 3, title: 'Strategi Jitu Mendapatkan Proyek Freelance', category: 'freelancer', description: 'Kuasai cara mendapatkan klien, negosiasi, dan mengelola proyek freelance secara efektif.', image: 'https://via.placeholder.com/400x250/b0d7ff/000000?text=Freelancer' },
-            { id: 4, title: 'Advanced UX Research & Testing', category: 'uiux', description: 'Mendalami metodologi riset pengguna dan pengujian untuk desain yang berpusat pada manusia.', image: 'https://via.placeholder.com/400x250/b0d7ff/000000?text=UX+Research' },
-            { id: 5, title: 'Backend Development dengan Node.js & Express', category: 'webdev', description: 'Pelajari membangun API yang kuat, aman, dan skalabel menggunakan Node.js dan Express.', image: 'https://via.placeholder.com/400x250/b0d7ff/000000?text=Node.js+Backend' },
-            { id: 6, title: 'Optimalisasi SEO untuk Website Bisnis', category: 'others', description: 'Tingkatkan peringkat websitemu di mesin pencari dan tarik lebih banyak traffic organik.', image: 'https://via.placeholder.com/400x250/b0d7ff/000000?text=SEO' },
-            { id: 7, title: 'Dasar-dasar Data Science dengan Python', category: 'others', description: 'Pengantar ke ilmu data, analisis data, dan visualisasi menggunakan bahasa pemrograman Python.', image: 'https://via.placeholder.com/400x250/b0d7ff/000000?text=Data+Science' },
-            { id: 8, title: 'Mengelola Keuangan Freelance', category: 'freelancer', description: 'Strategi pengelolaan keuangan khusus untuk para pekerja lepas, dari pajak hingga investasi.', image: 'https://via.placeholder.com/400x250/b0d7ff/000000?text=Fintech' }
-        ];
+        const courses = {!! json_encode($featuredCourses) !!};
 
         const testimonials = [
             {
@@ -216,7 +207,7 @@
                             <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full mb-2">${course.category.toUpperCase()}</span>
                             <h3 class="text-xl font-semibold text-gray-900 mb-2">${course.title}</h3>
                             <p class="text-gray-600 text-sm mb-4">${course.description}</p>
-                            <a href="#" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-full text-sm hover:bg-blue-700 transition duration-300">Lihat Detail</a>
+                            <a href="{{ route('login') }}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-full text-sm hover:bg-blue-700 transition duration-300">Lihat Detail</a>
                         </div>
                     </div>
                 `;

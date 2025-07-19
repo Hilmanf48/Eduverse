@@ -32,7 +32,7 @@
         <script>
             tsParticles.load("particles-js", {
                 background: {
-                    // Biarkan transparan agar gradasi dari Poin 1 tetap terlihat
+    
                 },
                 fpsLimit: 60,
                 interactivity: {
