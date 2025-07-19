@@ -1,52 +1,40 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+@extends('layouts.auth')
+
+@section('content')
+<x-auth-card title="Create Account" subtitle="Join us today and get started">
+    <form method="POST" action="{{ route('register') }}" class="space-y-6">
         @csrf
-
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        
+        <x-auth-validation-errors />
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <x-auth-input name="first_name" label="First Name" placeholder="John" required autofocus />
+            <x-auth-input name="last_name" label="Last Name" placeholder="Doe" required />
         </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        
+        <x-auth-input name="email" type="email" label="Email Address" placeholder="your@email.com" required />
+        <x-auth-input name="password" type="password" label="Password" placeholder="••••••••" required />
+        <x-auth-input name="password_confirmation" type="password" label="Confirm Password" placeholder="••••••••" required />
+        
+        <div class="flex items-center">
+            <input id="terms" name="terms" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" required>
+            <label for="terms" class="ml-2 block text-sm text-gray-700">
+                I agree to the <a href="#" class="text-blue-600 hover:text-blue-500">Terms</a> and <a href="#" class="text-blue-600 hover:text-blue-500">Privacy Policy</a>
+            </label>
         </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
+        
+        <x-auth-button>
+            Create Account
+        </x-auth-button>
+        
+        <x-auth-socialite />
     </form>
-</x-guest-layout>
+    
+    <x-slot name="footer">
+        <p class="text-center text-sm text-gray-600">
+            Already have an account? 
+            <a href="{{ route('login') }}" class="font-medium text-blue-600 hover:text-blue-500 transition-colors duration-200">Sign in</a>
+        </p>
+    </x-slot>
+</x-auth-card>
+@endsection
