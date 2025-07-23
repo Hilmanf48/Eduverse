@@ -67,11 +67,10 @@
                 </div>
 
                 <div class="flex flex-wrap justify-center gap-3" id="course-filters">
-                    <button class="filter-btn bg-blue-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-blue-700 transition duration-300 active" data-category="all">Semua</button>
-                    <button class="filter-btn bg-gray-200 text-gray-800 px-5 py-2 rounded-full font-semibold hover:bg-gray-300 transition duration-300" data-category="uiux">UI/UX Design</button>
-                    <button class="filter-btn bg-gray-200 text-gray-800 px-5 py-2 rounded-full font-semibold hover:bg-gray-300 transition duration-300" data-category="webdev">Web Development</button>
-                    <button class="filter-btn bg-gray-200 text-gray-800 px-5 py-2 rounded-full font-semibold hover:bg-gray-300 transition duration-300" data-category="freelancer">Freelancer</button>
-                    <button class="filter-btn bg-gray-200 text-gray-800 px-5 py-2 rounded-full font-semibold hover:bg-gray-300 transition duration-300" data-category="others">Lainnya</button>
+                    <button class="filter-btn active" data-category="all">Semua</button>
+                    @foreach($categories as $category)
+                        <button class="filter-btn" data-category="{{ strtolower($category->name) }}">{{ $category->name }}</button>
+                    @endforeach
                 </div>
             </div>
 

@@ -3,13 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Lesson;
+use App\Models\LessonProgress;
+use Illuminate\Support\Facades\Auth;        
+use App\Models\Quiz;
+use App\Models\QuizAttempt;
+use App\Models\Question;
 
 class QuizController extends Controller
 {
     public function show(Quiz $quiz)
     {
-        // Muat relasi pertanyaan, dan untuk setiap pertanyaan, muat relasi jawabannya
-        // Jawaban acak urutan agar tidak selalu sama
+        $user = Auth::user();
+        $course = $quiz->course;
+        $totalLessons = Lesson::whereHas('session', function ($q) use ($course) {
+            $q->where('course_id', $course->id);
+        })->count();
+
+        // Lesson yang diselesaikan user
+        $completedLessons = LessonProgress::where('user_id', $user->id)
+            ->whereHas('lesson.session', function ($q) use ($course) {
+                $q->where('course_id', $course->id);
+            })->count();
+
+        // Cek apakah sudah 100%
+        if ($totalLessons === 0 || $completedLessons < $totalLessons) {
+            return redirect()->back()->with('error', 'Selesaikan semua materi sebelum mengerjakan kuis.');
+        }
+
+        // Muat kuis + relasi pertanyaan dan jawaban
         $quiz->load(['questions.answers' => function ($query) {
             $query->inRandomOrder();
         }]);

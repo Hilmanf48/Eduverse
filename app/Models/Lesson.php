@@ -11,17 +11,16 @@ class Lesson extends Model
     return $this->belongsTo(Course::class);
 }
 
-public function session()
+    public function session()
 {
-    
-    return $this->belongsTo(LearningSession::class, 'session_id');
+    return $this->belongsTo(\App\Models\LearningSession::class, 'session_id');
 }
 
-protected $fillable = [
-    'session_id',
-    'title',
-    'youtube_video_id',
-    'order',
-];
+    protected $fillable = [
+        'session_id',
+        'title',
+        'youtube_video_id',
+        'order',
+    ];
 
 }

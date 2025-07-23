@@ -7,10 +7,9 @@
         
         <x-auth-validation-errors />
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <x-auth-input name="first_name" label="First Name" placeholder="John" required autofocus />
-            <x-auth-input name="last_name" label="Last Name" placeholder="Doe" required />
-        </div>
+        
+        <x-auth-input name="name" label="Full Name" placeholder="John Doe" required autofocus />
+        
         
         <x-auth-input name="email" type="email" label="Email Address" placeholder="your@email.com" required />
         <x-auth-input name="password" type="password" label="Password" placeholder="••••••••" required />

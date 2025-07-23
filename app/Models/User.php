@@ -7,9 +7,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\QuizAttempt;
 
 class User extends Authenticatable
 {
+    public function enrollments(): BelongsToMany
+    {
+        return $this->belongsToMany(Course::class, 'enrollments')
+            ->withTimestamps()
+            ->withPivot(['progress', 'completed_at']);
+    }
     use HasFactory, Notifiable, HasApiTokens;
     /** @use HasFactory<\Database\Factories\UserFactory> */
 
@@ -22,6 +31,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin',
     ];
 
     /**
@@ -48,8 +58,12 @@ class User extends Authenticatable
     }
     
     public function progress() {
-        return $this->hasMany(UserProgress::class);
+        return $this->hasMany(LessonProgress::class);
     
 }
+public function quizAttempts(): HasMany
+    {
+        return $this->hasMany(QuizAttempt::class);
+    }
 
 }
