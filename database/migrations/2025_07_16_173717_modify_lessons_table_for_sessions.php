@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('lessons', function (Blueprint $table) {
-        // Hapus foreign key lama
+        
             $table->dropForeign(['course_id']);
             $table->dropColumn('course_id');
 

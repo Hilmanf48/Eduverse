@@ -11,7 +11,7 @@ class QuizAttempt extends Model
 
     protected $fillable = [
         'user_id',
-        'quiz_id',
+        'quiz_id', 
         'score',
     ];
 
@@ -22,6 +22,6 @@ class QuizAttempt extends Model
 
     public function quiz()
     {
-        return $this->belongsTo(Quiz::class);
+        return $this->belongsTo(Quiz::class, 'quiz_id');
     }
 }

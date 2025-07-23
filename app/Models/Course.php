@@ -12,7 +12,7 @@ class Course extends Model
 
     use HasFactory;
 
-    protected $fillable = ['title', 'description'];
+    protected $fillable = ['title', 'description', 'image_path', 'category_id'];
 
     public function sessions()
     {
@@ -24,20 +24,74 @@ class Course extends Model
         return $this->hasManyThrough(
         Lesson::class,
         LearningSession::class,
-        'course_id', // Foreign key di tabel learning_sessions
-        'session_id'  // Foreign key di tabel lessons
+        'course_id', 
+        'session_id'         
     );
         
     }
 
-    public function quizzes() {
-        return $this->hasMany(Quiz::class);
-    }
+    public function quiz()
+{
+    return $this->hasManyThrough(
+        \App\Models\Quiz::class,
+        \App\Models\LearningSession::class,
+        'course_id',      
+        'learning_session_id', 
+        'id',             
+        'id'              
+    );
+}
+public function quizzes()
+{
+    return $this->hasManyThrough(
+        \App\Models\Quiz::class,
+        \App\Models\LearningSession::class,
+        'course_id',
+        'learning_session_id',
+        'id',
+        'id'
+    );
+}
+
+    
     
     public function finalExam()
-    {
-    
-        return $this->hasOne(Quiz::class);
+{
+    return $this->hasOneThrough(
+        \App\Models\Quiz::class,
+        \App\Models\LearningSession::class,
+        'course_id',            
+        'learning_session_id',  
+        'id',                   
+        'id'                    
+    );
+}
+
+    public function category() {
+        return $this->belongsTo(Category::class);
+        
     }
+
+    public function completedLessons()
+    {
+        return $this->hasManyThrough(
+            LessonProgress::class,   
+            Lesson::class,
+            'session_id',
+            'lesson_id',
+            'id',
+            'id'
+        )->whereHas('lesson.session', function ($query) {
+        $query->whereColumn('course_id', 'courses.id');
+        });
+    }
+    public function videos()
+{
+    return $this->hasMany(Video::class);
+}
+public function learningSessions()
+{
+    return $this->hasMany(\App\Models\LearningSession::class);
+}
 }
 

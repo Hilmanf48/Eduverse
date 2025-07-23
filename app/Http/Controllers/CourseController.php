@@ -3,7 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use App\Models\Quiz;
+use App\Models\LearningSession;
+
+
+
+
 
 
 class CourseController extends Controller
@@ -14,41 +23,58 @@ class CourseController extends Controller
     public function index()
     {
         $courses = Course::latest()->get();
+        $courses = Course::with('category')->latest()->get();
+        $categories = Category::all();
         return view('courses.index', compact('courses'));
     }
 
     /**
-     * Menampilkan halaman detail kursus, video, dan status ujian.
+     
      */
     public function show(Course $course)
+{
+    $user = Auth::user();
+
+    // Generate API token jika belum ada
+    if (!$user->api_token) {
+        $user->api_token = Str::random(60);
+        $user->save();
+    }
+
+    // Ambil semua sesi yang aktif
+    $publishedSessions = LearningSession::where('course_id', $course->id)
+        ->where('is_published', true)
+        ->with(['lessons', 'quiz']) // pastikan relasi ada
+        ->get();
+
+    // Ambil semua pelajaran dari sesi
+    $allLessons = \App\Models\Lesson::whereIn('session_id', $publishedSessions->pluck('id'))
+        ->get();
+
+    // Ambil lesson yang sudah diselesaikan user
+    $completedLessons = \App\Models\LessonProgress::where('user_id', $user->id)
+        ->whereIn('lesson_id', $allLessons->pluck('id'))
+        ->pluck('lesson_id');
+
+    // Unlock exam jika semua lesson selesai
+    $isExamUnlocked = $allLessons->count() > 0 && $completedLessons->count() === $allLessons->count();
+
+    return view('courses.show', [
+        'course' => $course,
+        'sessions' => $publishedSessions,
+        'allLessons' => $allLessons,
+        'completedLessons' => $completedLessons,
+        'isExamUnlocked' => $isExamUnlocked,
+        'apiToken' => $user->api_token,
+    ]);
+
+}
+
+
+    public function edit(Course $course)
     {
-        $user = auth()->user();
-
-        // 1. Muat semua data yang diperlukan dengan efisien
-        $course->load(['sessions.lessons', 'finalExam']);
-
-        // 2. Hitung total video dalam kursus ini
-        $totalLessonsCount = $course->lessons->count();
-
-        // 3. Ambil semua ID video yang sudah diselesaikan user untuk kursus ini
-        $completedLessons = $user->progress()
-                              ->whereIn('lesson_id', $course->lessons->pluck('id'))
-                              ->pluck('lesson_id');
-        $completedLessonsCount = $completedLessons->count();
-
-        // 4. Logika Penguncian Ujian Akhir
-        $isExamUnlocked = ($totalLessonsCount > 0 && $completedLessonsCount >= $totalLessonsCount);
-
-        // 5. Buat token API untuk progress video
-        $user->tokens()->delete();
-        $apiToken = $user->createToken('api-token')->plainTextToken;
-
-        // 6. Kirim semua data yang dibutuhkan ke view
-        return view('courses.show', compact(
-            'course',
-            'completedLessons',
-            'apiToken',
-            'isExamUnlocked'
-        ));
+        
+        $categories = Category::all();
+        return view('admin.courses.edit', compact('course', 'categories'));
     }
 }
