@@ -3,17 +3,20 @@
 namespace App\Filament\Admin\Resources\QuestionResource\Pages;
 
 use App\Filament\Admin\Resources\QuestionResource;
-use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
 class EditQuestion extends EditRecord
 {
     protected static string $resource = QuestionResource::class;
 
-    protected function getHeaderActions(): array
+    protected function afterSave(): void
     {
-        return [
-            Actions\DeleteAction::make(),
-        ];
+        $data = $this->form->getState();
+        $question = $this->record;
+
+        
+        $question->answers()->delete();
+
+        \App\Filament\Admin\Resources\QuestionResource::syncAnswers($question, $data);
     }
 }

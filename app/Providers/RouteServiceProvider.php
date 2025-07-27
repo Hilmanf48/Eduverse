@@ -12,7 +12,7 @@ class RouteServiceProvider extends ServiceProvider
     public const HOME = '/dashboard';
     public function boot(): void
     {
-        // ✅ Registrasi middleware secara global
+        
         Route::aliasMiddleware('api.token', ApiTokenAuth::class);
 
         $this->routes(function () {

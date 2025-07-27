@@ -21,6 +21,8 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\LessonProgressController;
+
 
 
 // Controller Admin
@@ -85,7 +87,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/quizzes/{quiz}', [QuizController::class, 'show'])->name('quizzes.show');
     Route::post('/quizzes/{quiz}/submit', [QuizController::class, 'submit'])->name('quizzes.submit');
     Route::get('/quizzes/attempts/{attempt}', [QuizController::class, 'result'])->name('quizzes.result');
-    Route::get('/quizzes/{course}', [QuizController::class, 'show'])->name('quizzes.show');
+  //Route::get('/quizzes/{course}', [QuizController::class, 'show'])->name('quizzes.show');
+ // Route::middleware('auth:sanctum')->post('/lessons/{lesson}/complete', [LessonProgressController::class, 'store']);
+ // Route::post('/lessons/{lesson}/complete', [LessonProgressController::class, 'complete'])->middleware('auth');
+ // oute::post('/lessons/{lesson}/complete', [LessonController::class, 'markComplete']);
+   Route::post('/lessons/{lesson}/complete', [LessonProgressController::class, 'markAsComplete'])->middleware('auth')->name('lessons.complete');
+    
+
+
+    
+
 
 });
 

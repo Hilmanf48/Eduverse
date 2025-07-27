@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LessonProgress extends Model
 {
-    protected $fillable = ['user_id', 'lesson_id'];
-
+    protected $fillable = ['user_id', 'lesson_id', 'completed_at'];
     public function user()
     {
         return $this->belongsTo(User::class);

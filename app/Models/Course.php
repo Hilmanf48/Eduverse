@@ -30,17 +30,17 @@ class Course extends Model
         
     }
 
-    public function quiz()
-{
-    return $this->hasManyThrough(
-        \App\Models\Quiz::class,
-        \App\Models\LearningSession::class,
-        'course_id',      
-        'learning_session_id', 
-        'id',             
-        'id'              
-    );
-}
+ // public function quiz()
+ // {
+//  return $this->hasManyThrough(
+//      \App\Models\Quiz::class,
+//      \App\Models\LearningSession::class,
+//      'course_id',      
+//      'learning_session_id', 
+//      'id',             
+//      'id'              
+//  );
+
 public function quizzes()
 {
     return $this->hasManyThrough(

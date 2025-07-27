@@ -60,10 +60,15 @@ class User extends Authenticatable
     public function progress() {
         return $this->hasMany(LessonProgress::class);
     
-}
-public function quizAttempts(): HasMany
+    }
+    public function quizAttempts(): HasMany
     {
         return $this->hasMany(QuizAttempt::class);
     }
+    public function lessonProgress()
+    {
+        return $this->hasMany(LessonProgress::class);
+    }
+
 
 }

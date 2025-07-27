@@ -26,51 +26,58 @@ class QuestionResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Course Management';
 
-    public static function form(Form $form): Form
-    {
-            return $form->schema([
-        Select::make('course_id')
-            ->label('Pilih Kursus')
-            ->options(Course::pluck('title', 'id'))
-            ->reactive()
-            ->afterStateUpdated(fn ($set) => $set('learning_session_id', null)),
+   public static function form(Form $form): Form
+{
+    return $form
+        ->schema([
+            Select::make('course_id')
+                ->label('Pilih Kursus')
+                ->options(Course::pluck('title', 'id'))
+                ->reactive()
+                ->afterStateUpdated(fn ($set) => $set('learning_session_id', null)),
 
-        Select::make('learning_session_id')
-            ->label('Pilih Sesi')
-            ->options(function ($get) {
-                $courseId = $get('course_id');
-                return $courseId
-                    ? LearningSession::where('course_id', $courseId)->where('is_published', true)->pluck('title', 'id')
-                    : [];
-            })
-            ->reactive()
-            ->afterStateUpdated(fn ($set) => $set('quiz_id', null)),
+            Select::make('learning_session_id')
+                ->label('Pilih Sesi')
+                ->options(function ($get) {
+                    $courseId = $get('course_id');
+                    return $courseId
+                        ? LearningSession::where('course_id', $courseId)->where('is_published', true)->pluck('title', 'id')
+                        : [];
+                })
+                ->reactive()
+                ->afterStateUpdated(fn ($set) => $set('quiz_id', null)),
 
-        Select::make('quiz_id')
-            ->label('Pilih Kuis')
-            ->options(function ($get) {
-                $sessionId = $get('learning_session_id');
-                return $sessionId
-                    ? Quiz::where('learning_session_id', $sessionId)->pluck('title', 'id')
-                    : [];
-            })
-            ->required(),
+            Select::make('quiz_id')
+                ->label('Pilih Kuis')
+                ->options(function ($get) {
+                    $sessionId = $get('learning_session_id');
+                    return $sessionId
+                        ? Quiz::where('learning_session_id', $sessionId)->pluck('title', 'id')
+                        : [];
+                })
+                ->required(),
 
-        Textarea::make('question_text')->label('Pertanyaan')->required(),
+            Textarea::make('question_text')->label('Pertanyaan')->required(),
 
-        
-        Repeater::make('answers')
-            ->relationship()
-            ->schema([
-                TextInput::make('answer_text')->label('Jawaban')->required(),
-                Checkbox::make('is_correct')->label('Jawaban Benar?'),
-            ])
-            ->label('Pilihan Jawaban')
-            ->columns(2)
-            ->defaultItems(4)
-            ->required(),
-    ]);
-    }
+            TextInput::make('option_a')->label('Opsi A')->required(),
+            TextInput::make('option_b')->label('Opsi B')->required(),
+            TextInput::make('option_c')->label('Opsi C')->required(),
+            TextInput::make('option_d')->label('Opsi D')->required(),
+
+            Select::make('correct_answer')
+                ->label('Jawaban Benar')
+                ->options([
+                    'a' => 'Opsi A',
+                    'b' => 'Opsi B',
+                    'c' => 'Opsi C',
+                    'd' => 'Opsi D',
+                ])
+                ->required(),
+                ]);
+}
+
+
+
 
     public static function table(Table $table): Table
     {
@@ -96,4 +103,22 @@ class QuestionResource extends Resource
             'edit' => Pages\EditQuestion::route('/{record}/edit'),
         ];
     }
+    public static function syncAnswers($question)
+{
+    $options = [
+        'a' => $question->option_a,
+        'b' => $question->option_b,
+        'c' => $question->option_c,
+        'd' => $question->option_d,
+    ];
+
+    foreach ($options as $key => $text) {
+        if ($text !== null && $text !== '') {
+            $question->answers()->create([
+                'text' => $text,
+                'is_correct' => $key === $question->correct_answer,
+            ]);
+        }
+    }
+}
 }

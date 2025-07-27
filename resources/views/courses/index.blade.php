@@ -24,7 +24,7 @@
                             {{-- Thumbnail Kursus --}}
                             <div class="relative h-48 overflow-hidden">
                                 <img
-                                    src="{{ $course->image_path ?? 'https://placehold.co/600x400/E0F2F7/007BFF?text=EduVerse+Course' }}"
+                                    src="{{ $course->image_path ? asset('storage/' . $course->image_path) : 'https://placehold.co/600x400/E0F2F7/007BFF?text=EduVerse+Course' }}"
                                     alt="{{ $course->title }}"
                                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                                     onerror="this.onerror=null;this.src='https://placehold.co/600x400/E0F2F7/007BFF?text=EduVerse+Course';"

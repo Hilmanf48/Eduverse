@@ -8,6 +8,7 @@ use Filament\Forms;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
 use Filament\Resources\RelationManagers\RelationManager;
 
 class QuizRelationManager extends RelationManager
@@ -22,6 +23,10 @@ class QuizRelationManager extends RelationManager
             ->schema([
                 TextInput::make('title')
                     ->label('Judul Kuis')
+                    ->required(),
+                Select::make('course_id')
+                    ->label('Course')
+                    ->relationship('course', 'title')
                     ->required(),
 
         Forms\Components\Textarea::make('description')

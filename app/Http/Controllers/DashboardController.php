@@ -83,24 +83,24 @@ class DashboardController extends Controller
     }
 
     /**
-     * Menghitung jam belajar user
+     * 
      */
     protected function calculateLearningHours($user)
     {
         return $user->progress()
             ->join('lessons', 'lesson_progress.lesson_id', '=', 'lessons.id')
-            ->sum('lessons.duration') / 60; // Convert menit ke jam
+            ->sum('lessons.duration') / 60; 
     }
 
     /**
-     * Menghitung progres belajar
+     * 
      */
     protected function calculateLearningProgress($user)
     {
         $totalLessons = Lesson::count();
         $completedLessons = $user->progress()->count();
         
-        // Progress per course
+       
         $courseProgress = Course::withCount(['lessons', 'completedLessons' => function($q) use ($user) {
                 $q->where('user_id', $user->id);
             }])
@@ -129,7 +129,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * Data aktivitas untuk chart
+     * 
      */
     protected function getActivityData($user, $range = 'week')
     {
@@ -151,7 +151,7 @@ class DashboardController extends Controller
             ->orderBy('date_group')
             ->get();
 
-        // Format untuk Chart.js
+       
         $labels = $activityData->map(function ($item) use ($dateFormat) {
             return Carbon::parse($item->date_group)->format($dateFormat);
         });

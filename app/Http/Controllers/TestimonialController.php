@@ -14,7 +14,7 @@ class TestimonialController extends Controller
         'role' => 'required|string|max:255',
         'member_of' => 'required|string|max:255',
         'quote' => 'required|string|min:20',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Validasi gambar
+        'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
     ]);
 
     $user = Auth::user();
@@ -22,7 +22,7 @@ class TestimonialController extends Controller
 
     
     if ($request->hasFile('image')) {
-        // Simpan gambar ke storage/app/public/testimonials
+        
         $imagePath = $request->file('image')->store('testimonials', 'public');
     }
 

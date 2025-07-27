@@ -17,6 +17,6 @@ class SocialiteController extends Controller
     {
     
         $user = Socialite::driver($provider)->user();
-        dd($user); // Untuk tes
+        dd($user);
     }
 }

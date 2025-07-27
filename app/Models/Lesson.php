@@ -17,10 +17,11 @@ class Lesson extends Model
 }
 
     protected $fillable = [
-        'session_id',
-        'title',
-        'youtube_video_id',
-        'order',
-    ];
+    'course_id',
+    'session_id',
+    'title',
+    'youtube_video_id',
+    'order',
+];
 
 }

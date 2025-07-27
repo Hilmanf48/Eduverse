@@ -30,13 +30,13 @@ class LearningSession extends Model
      return $this->hasMany(Video::class, 'learning_session_id');
     }
     public function quiz()
-{
-    return $this->hasOne(\App\Models\Quiz::class, 'learning_session_id');
-}
-public function quizzes()
-{
-    return $this->hasMany(\App\Models\Quiz::class, 'learning_session_id');
-}
+    {
+        return $this->hasOne(\App\Models\Quiz::class, 'learning_session_id');
+    }
+    public function quizzes()
+    {
+        return $this->hasMany(\App\Models\Quiz::class, 'learning_session_id');
+    }
 
 
 
