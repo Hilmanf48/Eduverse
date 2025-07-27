@@ -43,7 +43,7 @@ public function store(Request $request): RedirectResponse
 
 
     if (Auth::user()->is_admin) {
-        return redirect('/admin'); // Dashboard Filament
+        return redirect('/admin'); // redirect to dashboard filament
     }
 
     return redirect('/dashboard'); 

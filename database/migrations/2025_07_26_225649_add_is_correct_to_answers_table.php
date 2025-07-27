@@ -12,14 +12,16 @@ return new class extends Migration
     public function up(): void
 {
     Schema::table('answers', function (Blueprint $table) {
-        $table->string('explanation')->nullable();
+        $table->boolean('is_correct')->default(false);
     });
 }
 
 public function down(): void
 {
     Schema::table('answers', function (Blueprint $table) {
-        $table->dropColumn('explanation');
+        $table->dropColumn('is_correct');
     });
 }
+
 };
+

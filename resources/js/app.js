@@ -1,15 +1,20 @@
 import './bootstrap';
 
-import Alpine from 'alpinejs';
+
 import './custom-cursor.js';
+import tippy from 'tippy.js';
+import 'tippy.js/dist/tippy.css';
 
-window.Alpine = Alpine;
+window.tippy = tippy;
 
-Alpine.start();
 
-// Tambahkan ini ke app.js Anda
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Intersection Observer untuk animasi scroll
+    
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -28,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
 
-    // Tooltip untuk instructor avatars
+    
     tippy('[data-tippy-content]', {
         placement: 'top',
         animation: 'shift-away',

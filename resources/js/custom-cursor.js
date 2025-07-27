@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
             cursorDot.style.left = `${dotX}px`;
             cursorDot.style.top = `${dotY}px`;
             
-            // Gerakan lingkaran luar (dengan efek delay/tertinggal)
+            
             outlineX += (mouseX - outlineX) * 0.1;
             outlineY += (mouseY - outlineY) * 0.1;
             cursorOutline.style.left = `${outlineX}px`;
@@ -45,9 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
             requestAnimationFrame(animateCursor);
         };
         
-        animateCursor(); // Mulai animasi
+        animateCursor(); 
 
-        // Efek hover
+        
         const interactiveElements = document.querySelectorAll('a, button, .cursor-pointer');
         interactiveElements.forEach((el) => {
             el.addEventListener('mouseover', () => cursorOutline.classList.add('hover'));

@@ -50,12 +50,14 @@ class CourseResource extends Resource
                 ->required()
                 ->rows(5),
 
-            FileUpload::make('image')
+            FileUpload::make('image_path')
                 ->label('Thumbnail')
                 ->image()
                 ->imagePreviewHeight('150')
                 ->directory('thumbnails')
-                ->required(),
+                ->required()
+                ->visibility('public')
+
         ]);
     }
 

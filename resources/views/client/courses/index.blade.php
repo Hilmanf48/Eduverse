@@ -30,7 +30,7 @@
             <div class="hidden md:flex items-center space-x-6">
                 <a href="{{ url('/') }}" class="text-gray-600 hover:text-blue-600 transition duration-300">Home</a>
                 <a href="{{ route('courses.index') }}" class="text-blue-600 font-semibold transition duration-300">Kelas</a> <a href="{{ url('/#story-success') }}" class="text-gray-600 hover:text-blue-600 transition duration-300">Story Success</a>
-                <a href="#" class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition duration-300">Login</a>
+                <a href="{{ route('login') }}" class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition duration-300">Login</a>
             </div>
         </div>
 
@@ -40,7 +40,7 @@
             <a href="{{ url('/') }}" @click="open = false" class="block text-gray-600 px-4 py-2 hover:bg-gray-100">Home</a>
             <a href="{{ route('courses.index') }}" @click="open = false" class="block text-blue-600 font-semibold px-4 py-2 hover:bg-gray-100">Kelas</a>
             <a href="{{ url('/#story-success') }}" @click="open = false" class="block text-gray-600 px-4 py-2 hover:bg-gray-100">Story Success</a>
-            <a href="#" @click="open = false" class="block bg-blue-600 text-white px-5 py-2 mx-4 rounded-full text-center hover:bg-blue-700 mt-2">Login</a>
+            <a href="{{ ('login') }}" @click="open = false" class="block bg-blue-600 text-white px-5 py-2 mx-4 rounded-full text-center hover:bg-blue-700 mt-2">Login</a>
         </div>
     </nav>
 
@@ -104,16 +104,16 @@
 
     <script>
         // Data courses (ini akan sama dengan yang di landing page, bisa dipindahkan ke file JS terpisah nanti)
-        const courses = [
-            { id: 1, title: 'Fundamental UI/UX Design', category: 'uiux', description: 'Pelajari dasar-dasar desain antarmuka pengguna dan pengalaman pengguna dari nol.', image: '{{ asset('images/class-uiux.jpg') }}' },
-            { id: 2, title: 'Fullstack Web Dev with Laravel & Vue', category: 'webdev', description: 'Bangun aplikasi web lengkap menggunakan Laravel dan Vue.js, siap untuk karir profesional.', image: '{{ asset('images/class-webdev.jpg') }}' },
-            { id: 3, title: 'Strategi Jitu Mendapatkan Proyek Freelance', category: 'freelancer', description: 'Kuasai cara mendapatkan klien, negosiasi, dan mengelola proyek freelance secara efektif.', image: '{{ asset('images/class-freelancer.jpg') }}' },
-            { id: 4, title: 'Advanced UX Research & Testing', category: 'uiux', description: 'Mendalami metodologi riset pengguna dan pengujian untuk desain yang berpusat pada manusia.', image: '{{ asset('images/class-ux-research.jpg') }}' },
-            { id: 5, title: 'Backend Development dengan Node.js & Express', category: 'webdev', description: 'Pelajari membangun API yang kuat, aman, dan skalabel menggunakan Node.js dan Express.', image: '{{ asset('images/class-nodejs-backend.jpg') }}' },
-            { id: 6, title: 'Optimalisasi SEO untuk Website Bisnis', category: 'others', description: 'Tingkatkan peringkat websitemu di mesin pencari dan tarik lebih banyak traffic organik.', image: '{{ asset('images/class-seo.jpg') }}' },
-            { id: 7, title: 'Dasar-dasar Data Science dengan Python', category: 'others', description: 'Pengantar ke ilmu data, analisis data, dan visualisasi menggunakan bahasa pemrograman Python.', image: '{{ asset('images/class-data-science.jpg') }}' },
-            { id: 8, title: 'Mengelola Keuangan Freelance', category: 'freelancer', description: 'Strategi pengelolaan keuangan khusus untuk para pekerja lepas, dari pajak hingga investasi.', image: '{{ asset('images/class-fintech.jpg') }}' }
-        ];
+     //   const courses = [
+      //      { id: 1, title: 'Fundamental UI/UX Design', category: 'uiux', description: 'Pelajari dasar-dasar desain antarmuka pengguna dan pengalaman pengguna dari nol.', image: '{{ asset('images/class-uiux.jpg') }}' },
+      //      { id: 2, title: 'Fullstack Web Dev with Laravel & Vue', category: 'webdev', description: 'Bangun aplikasi web lengkap menggunakan Laravel dan Vue.js, siap untuk karir profesional.', image: '{{ asset('images/class-webdev.jpg') }}' },
+      //      { id: 3, title: 'Strategi Jitu Mendapatkan Proyek Freelance', category: 'freelancer', description: 'Kuasai cara mendapatkan klien, negosiasi, dan mengelola proyek freelance secara efektif.', image: '{{ asset('images/class-freelancer.jpg') }}' },
+      //      { id: 4, title: 'Advanced UX Research & Testing', category: 'uiux', description: 'Mendalami metodologi riset pengguna dan pengujian untuk desain yang berpusat pada manusia.', image: '{{ asset('images/class-ux-research.jpg') }}' },
+      //      { id: 5, title: 'Backend Development dengan Node.js & Express', category: 'webdev', description: 'Pelajari membangun API yang kuat, aman, dan skalabel menggunakan Node.js dan Express.', image: '{{ asset('images/class-nodejs-backend.jpg') }}' },
+      //      { id: 6, title: 'Optimalisasi SEO untuk Website Bisnis', category: 'others', description: 'Tingkatkan peringkat websitemu di mesin pencari dan tarik lebih banyak traffic organik.', image: '{{ asset('images/class-seo.jpg') }}' },
+      //      { id: 7, title: 'Dasar-dasar Data Science dengan Python', category: 'others', description: 'Pengantar ke ilmu data, analisis data, dan visualisasi menggunakan bahasa pemrograman Python.', image: '{{ asset('images/class-data-science.jpg') }}' },
+      //      { id: 8, title: 'Mengelola Keuangan Freelance', category: 'freelancer', description: 'Strategi pengelolaan keuangan khusus untuk para pekerja lepas, dari pajak hingga investasi.', image: '{{ asset('images/class-fintech.jpg') }}' }
+      //  ];
 
         const courseListContainer = document.getElementById('course-list');
         const filterButtons = document.querySelectorAll('.filter-btn');

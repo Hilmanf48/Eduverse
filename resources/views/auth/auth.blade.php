@@ -37,7 +37,7 @@
     </div>
     
     <script>
-        // Tambahkan animasi hover untuk semua input
+        
         document.querySelectorAll('input').forEach(input => {
             input.addEventListener('focus', () => {
                 input.parentElement.classList.add('ring-2', 'ring-blue-200', 'rounded-lg');

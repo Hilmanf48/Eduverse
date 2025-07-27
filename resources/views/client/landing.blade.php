@@ -59,7 +59,7 @@
                     </p>
                 </div>
                 <div class="md:w-1/2 mt-8 md:mt-0">
-                    {{-- Pastikan gambar ini ada di public/images/ --}}
+                    
                     <img src="{{ asset('images/logo.png') }}" alt="Ilustrasi Eduverse" class="w-full h-auto rounded-lg shadow-xl">
                 </div>
             </div>
@@ -117,7 +117,7 @@
             console.log("Merender course:", course);
             const courseCard = `
                 <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                    <img src="${course.image}" alt="${course.title}" class="w-full h-40 object-cover">
+                    <img src="/storage/${course.image_path}" alt="${course.title}" class="w-full h-40 object-cover">
                     <div class="p-6">
                         <span class="...">${course.category_name.toUpperCase()}</span>
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">${course.title}</h3>
